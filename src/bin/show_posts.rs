@@ -1,12 +1,12 @@
-extern crate diesel_demo;
+extern crate diesel_demo_sqlite as demo_sqlite;
 extern crate diesel;
 
-use self::diesel_demo::*;
+use self::demo_sqlite::*;
 use self::models::*;
 use self::diesel::prelude::*;
 
 fn main() {
-    use diesel_demo::schema::posts::dsl::*;
+    use demo_sqlite::schema::posts::dsl::*;
 
     let connection = establish_connection();
     let results = posts.filter(published.eq(true))

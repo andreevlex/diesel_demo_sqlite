@@ -1,5 +1,5 @@
 [package]
-name = "diesel_demo"
+name = "diesel_demo_sqlite"
 version = "0.1.0"
 authors = ["Alexander Andreev <andreevlex.as@gmail.com>"]
 
