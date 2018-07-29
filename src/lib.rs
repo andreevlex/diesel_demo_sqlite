@@ -18,3 +18,23 @@ pub fn establish_connection() -> SqliteConnection {
     SqliteConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
 }
 
+use self::models::{Post, NewPost};
+
+pub fn create_post<'a>(conn: &SqliteConnection, _title: &'a str, _body: &'a str) -> QueryResult<Post> {
+    use schema::posts::dsl::*;
+
+    let new_post = NewPost {
+        title: _title,
+        body: _body,
+    };
+    
+    conn.transaction::<_, diesel::result::Error, _> (
+        || {
+            diesel::insert_into(posts)
+            .values(&new_post)
+            .execute(conn)?;
+
+            posts.order(id.desc()).first::<Post>(conn)
+        }
+    )
+}
